@@ -24,6 +24,17 @@ db:
 
 reset_db_between_tests: false
 
+autoupdate:
+  1: 
+  - collection: meeting
+    ids: [1]
+    fields:
+      tag_ids:
+        type: relation-list
+        collection: tag
+        fields:
+          name: null
+
 test_cases:
 - name: Test creation of tag by superadmin
   request_user: 1
