@@ -30,7 +30,7 @@ test_cases:
   payload:
   - action: tag.create
     data:
-      meeting_id: 1
+    - meeting_id: 1
       name: My first tag
   expected_http_response:
     status_code: 200
@@ -40,7 +40,7 @@ test_cases:
   payload:
   - action: tag.update
     data:
-      id: 1
+    - id: 1
       name: My first tag with changed name
   expected_http_response:
     status_code: 200
@@ -50,7 +50,7 @@ test_cases:
   payload:
   - action: tag.delete
     data:
-      id: 1
+    - id: 1
   expected_http_response:
     status_code: 200
 
@@ -59,7 +59,7 @@ test_cases:
   payload:
   - action: tag.delete
     data:
-      id: 1
+    - id: 1
   expected_http_response:
     status_code: 400
  
