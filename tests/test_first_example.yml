@@ -25,20 +25,25 @@ db:
 reset_db_between_tests: false
 
 autoupdate:
-  1: 
-  - collection: meeting
-    ids: [1]
-    fields:
-      tag_ids:
-        type: relation-list
-        collection: tag
-        fields:
-          name:
+  1:
+    request: 
+    - collection: meeting
+      ids: [1]
+      fields:
+        tag_ids:
+          type: relation-list
+          collection: tag
+          fields:
+            name:
+    response:
+    - meeting/1/tag_ids: []
+
+test_cases_defaults:
+  url: /system/action
+  request_user: 1
 
 test_cases:
 - name: Test creation of tag by superadmin
-  request_user: 1
-  test_case_url: /system/action
   payload:
   - action: tag.create
     data:
@@ -51,8 +56,6 @@ test_cases:
     tag/1/name: My first tag
 
 - name: Test update of tag by superadmin
-  request_user: 1
-  test_case_url: /system/action
   payload:
   - action: tag.update
     data:
@@ -64,8 +67,6 @@ test_cases:
   - tag/1/name: My first tag with changed name
 
 - name: Test deletion of tag by superadmin
-  request_user: 1
-  test_case_url: /system/action
   payload:
   - action: tag.delete
     data:
@@ -77,11 +78,28 @@ test_cases:
     tag/1/name: null
 
 - name: Test deleting of already deleted tag by superadmin
-  request_user: 1
-  test_case_url: /system/action
   payload:
   - action: tag.delete
     data:
     - id: 1
   expected_http_response:
     status_code: 400
+
+- name: Test creation of tag by anonymous with anonymous disabled 
+  request_user: 0
+  payload:
+  - action: tag.create
+    data:
+    - meeting_id: 1
+      name: My first tag
+  expected_http_response:
+    status_code: 400
+
+- name: Test whoami presenter
+  url: /system/presenter
+  payload:
+  - presenter: whoami
+  expected_http_response:
+    status_code: 200
+    body:
+      user_id: 1
