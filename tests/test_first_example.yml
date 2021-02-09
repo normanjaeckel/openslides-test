@@ -35,11 +35,10 @@ autoupdate:
         fields:
           name:
 
-test_case_url: /system/action
-
 test_cases:
 - name: Test creation of tag by superadmin
   request_user: 1
+  test_case_url: /system/action
   payload:
   - action: tag.create
     data:
@@ -53,6 +52,7 @@ test_cases:
 
 - name: Test update of tag by superadmin
   request_user: 1
+  test_case_url: /system/action
   payload:
   - action: tag.update
     data:
@@ -65,6 +65,7 @@ test_cases:
 
 - name: Test deletion of tag by superadmin
   request_user: 1
+  test_case_url: /system/action
   payload:
   - action: tag.delete
     data:
@@ -77,6 +78,7 @@ test_cases:
 
 - name: Test deleting of already deleted tag by superadmin
   request_user: 1
+  test_case_url: /system/action
   payload:
   - action: tag.delete
     data:
