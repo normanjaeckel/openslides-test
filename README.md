@@ -1,1 +1,3 @@
-# openslides-test
+# OpenSlides Test Framework
+
+Under hard development ...
