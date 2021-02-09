@@ -1,0 +1,65 @@
+---
+name: Test create, update and delete of tags
+
+db:
+  user:
+    1:
+      username: superadmin
+      organisation_management_level: superadmin
+  organisation:
+    1:
+      name: The one and only OpenSlides organisation
+      committee_ids: 
+      - 1
+  committee:
+    1: 
+      organisation_id: 1
+      name: Test committee
+      meeting_ids:
+      - 1
+  meeting:
+    1:
+      committee_id: 1
+      name: Test meeting
+
+reset_db_between_tests: false
+
+test_cases:
+- name: Test creation of tag by superadmin
+  request_user: 1
+  payload:
+  - action: tag.create
+    data:
+      meeting_id: 1
+      name: My first tag
+  expected_http_response:
+    status_code: 200
+
+- name: Test update of tag by superadmin
+  request_user: 1
+  payload:
+  - action: tag.update
+    data:
+      id: 1
+      name: My first tag with changed name
+  expected_http_response:
+    status_code: 200
+  
+- name: Test deletion of tag by superadmin
+  request_user: 1
+  payload:
+  - action: tag.delete
+    data:
+      id: 1
+  expected_http_response:
+    status_code: 200
+
+- name: Test deleting of already deleted tag by superadmin
+  request_user: 1
+  payload:
+  - action: tag.delete
+    data:
+      id: 1
+  expected_http_response:
+    status_code: 400
+ 
