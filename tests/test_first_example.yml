@@ -1,5 +1,5 @@
 ---
-name: Test create, update and delete of tags
+name: Test create, update and delete tags. Tests whoami presenter.
 
 db:
   user:
@@ -95,7 +95,7 @@ test_cases:
   expected_http_response:
     status_code: 400
 
-- name: Test whoami presenter
+- name: Test whoami presenter  # Attention: The presenter is still in dummy mode.
   url: /system/presenter
   payload:
   - presenter: whoami
