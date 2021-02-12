@@ -1,5 +1,5 @@
 ---
-name: Test create, update and delete tags. Tests whoami presenter.
+description: Test create, update and delete tags. Tests whoami presenter.
 
 db:
   user:
@@ -22,9 +22,7 @@ db:
       committee_id: 1
       name: Test meeting
 
-reset_db_between_tests: false
-
-autoupdate:
+autoupdate_connect:
   1:
     request: 
     - collection: meeting
@@ -38,11 +36,11 @@ autoupdate:
     response:
     - meeting/1/tag_ids: []
 
-test_cases_defaults:
+cases_defaults:
   url: /system/action
   request_user: 1
 
-test_cases:
+cases:
 - name: Test creation of tag by superadmin
   payload:
   - action: tag.create
@@ -52,8 +50,9 @@ test_cases:
   expected_http_response:
     status_code: 200
   expected_autoupdate:
-  - meeting/1/tag_ids: [1]
-    tag/1/name: My first tag
+    1:
+    - meeting/1/tag_ids: [1]
+      tag/1/name: My first tag
 
 - name: Test update of tag by superadmin
   payload:
@@ -64,7 +63,8 @@ test_cases:
   expected_http_response:
     status_code: 200
   expected_autoupdate:
-  - tag/1/name: My first tag with changed name
+    1:
+    - tag/1/name: My first tag with changed name
 
 - name: Test deletion of tag by superadmin
   payload:
@@ -74,8 +74,9 @@ test_cases:
   expected_http_response:
     status_code: 200
   expected_autoupdate:
-  - meeting/1/tag_ids: []
-    tag/1/name: null
+    1:
+    - meeting/1/tag_ids: []
+      tag/1/name: null
 
 - name: Test deleting of already deleted tag by superadmin
   payload:
